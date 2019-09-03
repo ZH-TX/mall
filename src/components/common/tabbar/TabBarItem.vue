@@ -1,8 +1,18 @@
 <template>
   <div id="tab-bar-item" @click="itemClick">
-    <div class="item-icon" v-show="!isActive"><slot name="icon"></slot></div>
-    <div class="item-active-icon" v-show="isActive"><slot name="active-icon"></slot></div>
-    <div class="item-text" :style="activeStyle"><slot name="text"></slot></div>
+
+    <div class="item-icon" v-show="!isActive">
+      <slot name="icon"></slot>
+    </div>
+
+    <div class="item-active-icon" v-show="isActive">
+      <slot name="active-icon"></slot>
+    </div>
+
+    <div class="item-text" :style="activeStyle">
+      <slot name="text"></slot>
+    </div>
+    
   </div>
 </template>
 

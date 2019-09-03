@@ -1,15 +1,17 @@
 module.exports={
     configureWebpack:{
         resolve:{
-            extensions:[],
+            extensions:['.Vue',".css",'.js'],
             // 配置好别名
             alias:{
-                "@":"src",
+                // "@":"src",
                 "assets":"@/assets",
-                "common":"@/common",
+                // "common":"@/common",
                 "components":"@/components",
                 "network":"@/network",
-                "view":"@/view",
+                "views":"@/views",
+                'content': 'components/content',
+                'common': 'components/common',
                 
             }
 
