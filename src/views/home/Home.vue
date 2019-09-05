@@ -24,10 +24,16 @@
     <back-top @backTop="backTop" class="back-top" v-show="showBackTop">
       <img src="~assets/img/common/top.png" alt="">
     </back-top>
+
+    
+
   </div>
 </template>
 
 <script>
+
+
+
   import NavBar from 'common/navbar/NavBar'
   import Scroll from 'common/scroll/Scroll'
   import TabControl from 'content/tabControl/TabControl'
@@ -64,6 +70,7 @@
 		  return {
 		    banners: [],
         recommends: [],
+        // 请求的数据格式
         goodsList: {
           'pop': {page: 1, list: []},
           'new': {page: 1, list: []},
@@ -85,11 +92,13 @@
       // 1.请求多个数据
       this.getMultiData()
 
-      // 2.请求商品数据
+      // 2.请求商品数据,将三个数据全部请求下来
       this.getHomeProducts(POP)
       this.getHomeProducts(NEW)
       this.getHomeProducts(SELL)
     },
+
+
     activated: function () {
       this.$refs.hSwiper.startTimer()
     },
@@ -100,6 +109,8 @@
       // this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop
       // console.log(this.tabOffsetTop);
     },
+
+
     methods: {
 		  tabClick(index) {
 		    switch (index) {
@@ -127,12 +138,17 @@
       backTop() {
         this.$refs.scroll.scrollTo(0, 0, 300)
       },
+
+
+
       /**
        * 网络请求相关方法
        */
       getMultiData() {
         getHomeMultidata().then(res => {
-          this.banners = res.data[BANNER].list
+          console.log(res.data);
+          
+          this.banners = res.data.list
           this.recommends = res.data[RECOMMEND].list
           // 下次更新DOM时,获取新的tabOffsetTop值(不保险,可以在updated钩子中获取)
           this.$nextTick(() => {
@@ -140,10 +156,14 @@
           })
         })
       },
+
+
       getHomeProducts(type) {
         getHomeData(type, this.goodsList[type].page).then(res => {
           const goodsList = res.data.list;
           this.goodsList[type].list.push(...goodsList)
+
+          // 将请求的数据加一,达到刷新的过程
           this.goodsList[type].page += 1
 
           this.$refs.scroll.finishPullUp()
@@ -163,6 +183,13 @@
     background-color: var(--color-tint);
     font-weight: 700;
     color: #fff;
+
+/* 定位 */
+    /* position: absolute;
+    top: 0;
+   
+    left: 0;
+    right: 0; */
   }
 
   .content {

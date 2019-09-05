@@ -14,10 +14,16 @@
 
 <style scoped>
   #nav-bar {
-    position: relative;
+    /* 定位 */
+    position: fixed;
+    top: 0;
+   
+    left: 0;
+    right: 0;
     z-index: 10;
 
     display: flex;
+    /* 样式 */
 
     height: 44px;
     line-height: 44px;

@@ -1,11 +1,14 @@
 import originAxios from 'axios'
 import qs from 'qs'
 
+
+
 export default function axios(option) {
 	return new Promise((resolve, reject) => {
 		// 1.创建axios的实例
+
 		const instance = originAxios.create({
-			baseURL: 'http://123.207.32.32:8000',
+			baseURL: '/api?s_type=1&key_word=女装&app_key=LqZSB5E1&page=xxx&v=1.0&cat=2',
 			timeout: 5000
 		});
 
@@ -27,12 +30,15 @@ export default function axios(option) {
 			return err
 		})
 
+
+
 		instance.interceptors.response.use(response => {
-			// console.log('来到了response拦截success中');
+			console.log('来到了response拦截success中');
 			return response.data
 		}, err => {
 			console.log('来到了response拦截failure中');
-      console.log(err);
+	  console.log(err);
+	  
       if (err && err.response) {
 				switch (err.response.status) {
 					case 400:
@@ -41,6 +47,10 @@ export default function axios(option) {
 					case 401:
 						err.message = '未授权的访问'
 						break
+
+					case 404:
+						err.message = '没有找到啊'
+						break
 				}
 			}
 			return err
@@ -48,6 +58,7 @@ export default function axios(option) {
 
 		// 2.传入对象进行网络请求
 		instance(option).then(res => {
+			console.log(res);
 			resolve(res)
 		}).catch(err => {
 			reject(err)
