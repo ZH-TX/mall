@@ -1,4 +1,5 @@
 <template>
+  <!-- ref 相当于id的标志符 -->
   <div ref="wrapper">
     <slot></slot>
   </div>
@@ -39,7 +40,7 @@
 		    if (!this.$refs.wrapper) return
         this.scroll = new BScroll(this.$refs.wrapper, {
           probeType: this.probeType,
-          click: true,
+          click: true, //控制div之类的东西需要设置为true;
           pullUpLoad: this.pullUpLoad
         })
 

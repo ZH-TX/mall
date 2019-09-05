@@ -1,8 +1,8 @@
 <template>
   <div id="home">
     <nav-bar class="nav-bar"><div slot="center">购物街</div></nav-bar>
-    <tab-control v-show="isTabFixed" class="fixed" @itemClick="tabClick"
-                 :titles="['流行', '新款', '精选']"></tab-control>
+    <!-- <tab-control v-show="isTabFixed" class="fixed" @itemClick="tabClick"
+                 :titles="['流行', '新款', '精选']"></tab-control> -->
     <scroll class="content"
             ref="scroll"
             @scroll="contentScroll"
@@ -20,7 +20,9 @@
                      ref="tabControl"></tab-control>
         <goods-list :goods-list="showGoodsList"></goods-list>
       </div>
+      
     </scroll>
+   
     <back-top @backTop="backTop" class="back-top" v-show="showBackTop">
       <img src="~assets/img/common/top.png" alt="">
     </back-top>
@@ -36,12 +38,15 @@
 
   import NavBar from 'common/navbar/NavBar'
   import Scroll from 'common/scroll/Scroll'
+
   import TabControl from 'content/tabControl/TabControl'
   import BackTop from 'content/backTop/BackTop'
+
   import HomeSwiper from './childComps/HomeSwiper'
   import FeatureView from './childComps/FeatureView'
   import RecommendView from './childComps/RecommendView'
   import GoodsList from './childComps/GoodsList'
+
   import {getHomeMultidata, getHomeData, RECOMMEND, BANNER} from "network/home";
   import {NEW, POP, SELL, BACKTOP_DISTANCE} from "@/common/const";
 
@@ -73,8 +78,8 @@
         // 请求的数据格式
         goodsList: {
           'pop': {page: 1, list: []},
-          'new': {page: 1, list: []},
-          'sell': {page: 1, list: []}
+          'new': {page: 3, list: []},
+          'sell': {page: 5, list: []}
         },
         currentType: POP,
         isTabFixed: false,
@@ -84,7 +89,7 @@
     },
     computed: {
 		  showGoodsList() {
-		    return this.goodsList[this.currentType].list
+		    return this.banners;
       }
     },
     created() {
@@ -93,9 +98,9 @@
       this.getMultiData()
 
       // 2.请求商品数据,将三个数据全部请求下来
-      this.getHomeProducts(POP)
-      this.getHomeProducts(NEW)
-      this.getHomeProducts(SELL)
+      this.getHomeProducts()
+      this.getHomeProducts()
+      this.getHomeProducts()
     },
 
 
@@ -127,7 +132,7 @@
       },
       contentScroll(position) {
 		    // 1.决定tabFixed是否显示
-        this.isTabFixed = position.y < -this.tabOffsetTop
+        this.isTabFixed =( position.y < -this.tabOffsetTop)
 
         // 2.决定backTop是否显示
         this.showBackTop = position.y < -BACKTOP_DISTANCE
@@ -135,6 +140,7 @@
       loadMore() {
 		    this.getHomeProducts(this.currentType)
       },
+      // 回到顶部,在300毫秒之类;
       backTop() {
         this.$refs.scroll.scrollTo(0, 0, 300)
       },
@@ -146,10 +152,10 @@
        */
       getMultiData() {
         getHomeMultidata().then(res => {
-          console.log(res.data);
+          // console.log(res.data);
           
           this.banners = res.data.list
-          this.recommends = res.data[RECOMMEND].list
+          this.recommends = res.data.list
           // 下次更新DOM时,获取新的tabOffsetTop值(不保险,可以在updated钩子中获取)
           this.$nextTick(() => {
             this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop
@@ -159,8 +165,10 @@
 
 
       getHomeProducts(type) {
-        getHomeData(type, this.goodsList[type].page).then(res => {
+        getHomeData(type).then(res => {
           const goodsList = res.data.list;
+          console.log(goodList);
+          
           this.goodsList[type].list.push(...goodsList)
 
           // 将请求的数据加一,达到刷新的过程
@@ -193,6 +201,7 @@
   }
 
   .content {
+    /* 利用定位来达到内容全部塞满/也可以使用calc()计算属性来达到相同的效果 */
     position: absolute;
     top: 44px;
     bottom: 49px;

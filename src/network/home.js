@@ -9,16 +9,15 @@ export function getHomeMultidata() {
   })
 }
 
-export function getHomeData(s_key,  key_word,page) {
+export function getHomeData( page) {
   return axios({
-    url: '/',
+    url: '/api?key_word=女装&app_key=LqZSB5E1&page=xxx&v=1.0&cat=2',
     params:{
           s_type:1,
-          key_word:"搜索值" ,
-          app_key:LqZSB5E1,
-          page:num2,
-          v:num3,
-          cat:num4,
+         
+         
+          page,
+          
       
       
         }

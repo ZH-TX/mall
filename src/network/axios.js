@@ -58,7 +58,7 @@ export default function axios(option) {
 
 		// 2.传入对象进行网络请求
 		instance(option).then(res => {
-			console.log(res);
+			// console.log(res);
 			resolve(res)
 		}).catch(err => {
 			reject(err)

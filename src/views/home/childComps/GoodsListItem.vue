@@ -2,9 +2,9 @@
   <div class="goods" @click="goToDetail">
     <img v-lazy="getImg" :key="getImg" alt="">
     <div class="goods-info">
-      <p>{{goods.title}}</p>
-      <span class="price">¥{{goods.price}}</span>
-      <span class="collect">{{goods.cfav}}</span>
+      <p>{{goods.goods_short_title}}</p>
+      <span class="price">¥{{goods.goods_price}}</span>
+      <span class="collect">{{goods.coupon_number}}</span>
     </div>
   </div>
 </template>
@@ -32,7 +32,7 @@
     },
     computed: {
       getImg() {
-        return this.goods.img || this.goods.image || this.goods.show.img
+        return this.goods.goods_pic || this.goods.goods_pic || this.goods.goods_pic
       }
     }
 	}

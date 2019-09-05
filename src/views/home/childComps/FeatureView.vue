@@ -1,9 +1,9 @@
 <template>
   <div class="feature">
-    <div class="feature-item" v-for="(item, index) in features">
+    <div class="feature-item" v-for="(item, index) in features" :key="index">
       <a :href="item.link">
-        <img :src="item.image" alt="">
-        <div>{{item.title}}</div>
+        <img :src="item.goods_pic" alt="">
+        <!-- <div>{{item.goods_short_title}}</div> -->
       </a>
     </div>
   </div>
@@ -28,6 +28,8 @@
     font-size: 14px;
     padding-bottom: 30px;
     border-bottom: 10px solid #eee;
+
+    overflow-x:hidden;
   }
 
   .feature-item {
