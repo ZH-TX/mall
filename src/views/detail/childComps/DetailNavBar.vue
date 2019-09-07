@@ -33,6 +33,7 @@
     },
     methods: {
       itemClick: function (index) {
+        this.currentIndex=index;
         this.$emit('itemClick', index)
       },
       backClick() {
@@ -44,7 +45,7 @@
 
 <style scoped>
   .detail-nav {
-    background-color: #fff;
+    background-color: #ff8198;
     font-weight: normal;
   }
 
@@ -56,6 +57,7 @@
 
   .title-item {
     flex: 1;
+    color: #fff;
   }
 
   .title-item.active {

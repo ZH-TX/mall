@@ -1,8 +1,12 @@
 <template>
   <div id="home">
     <nav-bar class="nav-bar"><div slot="center">购物街</div></nav-bar>
-    <!-- <tab-control v-show="isTabFixed" class="fixed" @itemClick="tabClick"
-                 :titles="['流行', '新款', '精选']"></tab-control> -->
+    <tab-control v-show="isTabFixed" class="fixed" @itemClick="tabClick"
+                 :titles="['流行', '新款', '精选']"
+                 ref="tabControl2"
+                
+                 
+                 ></tab-control>
     <scroll class="content"
             ref="scroll"
             @scroll="contentScroll"
@@ -12,7 +16,10 @@
             :probe-type="3">
       <div>
         <home-swiper :banners="banners"
-                     ref="hSwiper"></home-swiper>
+                     ref="hSwiper"
+                     @swipperImgLoad="swipperImgLoad"
+                     :class="{fixed:isTabFixed }"
+                     ></home-swiper>
         <feature-view :features="recommends"></feature-view>
         <recommend-view></recommend-view>
         <tab-control @itemClick="tabClick"
@@ -103,7 +110,7 @@
       this.getHomeProducts()
     },
 
-
+  //保持原有状态;这里的startTimer存在三层嵌套;
     activated: function () {
       this.$refs.hSwiper.startTimer()
     },
@@ -117,6 +124,11 @@
 
 
     methods: {
+      // 实现吸顶效果;
+      swipperImgLoad(){
+         console.log(this.$refs.tabControl.$el.offsetTop+"没有使用这种吸顶");
+        
+      },
 		  tabClick(index) {
 		    switch (index) {
           case 0:
@@ -128,7 +140,12 @@
           case 2:
             this.currentType = SELL
             break
+         
+          
         }
+        this.$refs.tabControl.currentIndex=index;
+        this.$refs.tabControl2.currentIndex=index;
+
       },
       contentScroll(position) {
 		    // 1.决定tabFixed是否显示
@@ -173,7 +190,7 @@
 
           // 将请求的数据加一,达到刷新的过程
           this.goodsList[type].page += 1
-
+          //函数的封装在scroll
           this.$refs.scroll.finishPullUp()
         })
       }

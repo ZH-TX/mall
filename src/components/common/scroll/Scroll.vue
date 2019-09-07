@@ -31,6 +31,7 @@
 		    scroll: {}
       }
     },
+    // 依旧是为了保证加载时的已经挂载完成;
     mounted() {
 		  setTimeout(this.__initScroll, 20)
     },
@@ -39,9 +40,12 @@
 		    // 1.初始化BScroll对象
 		    if (!this.$refs.wrapper) return
         this.scroll = new BScroll(this.$refs.wrapper, {
+
+          // 将属性设置为一个参数
           probeType: this.probeType,
           click: true, //控制div之类的东西需要设置为true;
           pullUpLoad: this.pullUpLoad
+
         })
 
         // 2.将监听事件回调
@@ -55,6 +59,8 @@
           this.$emit('pullingUp')
         })
       },
+
+      // 这里需要都为值时,才能进行,保证挂载成功;
       refresh() {
         this.scroll && this.scroll.refresh && this.scroll.refresh()
       },
@@ -65,6 +71,7 @@
 		    this.scroll && this.scroll.scrollTo && this.scroll.scrollTo(x, y, time)
       }
     },
+    // 防止刷新过快,进行防抖;
     watch: {
 		  data() {
         setTimeout(this.refresh, 20)
