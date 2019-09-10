@@ -17,13 +17,16 @@
     },
     computed: {
 			isActive() {
+        // 判断是否存在this.link
 				return this.$route.path.indexOf(this.link) !== -1
       },
       activeStyle() {
+        // 直接使用三元运算符改变样式
 				return this.isActive ? {'color': 'red'} : {}
       }
     },
     methods: {
+      // 实现点击跳转
 			itemClick() {
 				this.$router.replace(this.link)
       }

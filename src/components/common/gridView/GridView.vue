@@ -5,6 +5,7 @@
 </template>
 
 <script>
+// 这个组件不知道是干啥的
 	export default {
 		name: "GridView",
     props: {

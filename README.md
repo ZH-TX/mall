@@ -14,6 +14,10 @@
 <!-- ![](https://github.com/ZH-TX/mall/blob/master/src/assets/cutImg/cut1.png) -->
 </div>
 
+
+##api
+API:http://openapi.qingtaoke.com/search
+在网上无意发现的一个api,接口有些数据,就借来展示了
 ## Project setup
 ```
 npm install
