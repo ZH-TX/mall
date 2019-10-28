@@ -34,7 +34,7 @@
         default: true
       }
     },
-    data: function () {
+    data () {
 		  return {
         slideCount: 0, // 元素个数
         totalWidth: 0, // swiper的宽度
@@ -43,7 +43,7 @@
         scrolling: false, // 是否正在滚动
       }
     },
-    mounted: function () {
+    mounted() {
       // 1.操作DOM, 在前后添加Slide
       setTimeout(() => {
         this.handleDom();
@@ -56,20 +56,20 @@
 		  /**
        * 定时器操作
        */
-      startTimer: function () {
-		    this.playTimer = window.setInterval(() => {
+      startTimer () {
+		    this.playTimer = setInterval(() => {
 		      this.currentIndex++;
 		      this.scrollContent(-this.currentIndex * this.totalWidth);
         }, this.interval)
       },
-      stopTimer: function () {
-        window.clearInterval(this.playTimer);
+      stopTimer () {
+        clearInterval(this.playTimer);
       },
 
       /**
        * 滚动到正确的位置
        */
-      scrollContent: function (currentPosition) {
+      scrollContent (currentPosition) {
         // 0.设置正在滚动
         this.scrolling = true;
 
@@ -87,8 +87,8 @@
       /**
        * 校验正确的位置
        */
-      checkPosition: function () {
-        window.setTimeout(() => {
+      checkPosition () {
+        setTimeout(() => {
           // 1.校验正确的位置
           this.swiperStyle.transition = '0ms';
           if (this.currentIndex >= this.slideCount + 1) {
@@ -107,7 +107,7 @@
       /**
        * 设置滚动的位置
        */
-      setTransform: function (position) {
+      setTransform(position) {
         this.swiperStyle.transform = `translate3d(${position}px, 0, 0)`;
         this.swiperStyle['-webkit-transform'] = `translate3d(${position}px), 0, 0`;
         this.swiperStyle['-ms-transform'] = `translate3d(${position}px), 0, 0`;
@@ -116,7 +116,7 @@
       /**
        * 操作DOM, 在DOM前后添加Slide
        */
-		  handleDom: function () {
+		  handleDom () {
         // 1.获取要操作的元素
         let swiperEl = document.querySelector('.swiper');
         let slidesEls = swiperEl.getElementsByClassName('slide');
@@ -141,7 +141,7 @@
       /**
        * 拖动事件的处理
        */
-      touchStart: function (e) {
+      touchStart (e) {
         // 1.如果正在滚动, 不可以拖动
         if (this.scrolling) return;
 

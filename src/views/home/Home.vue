@@ -184,7 +184,7 @@
       getHomeProducts(type) {
         getHomeData(type).then(res => {
           const goodsList = res.data.list;
-          console.log(goodList);
+          // console.log(goodList);
           
           this.goodsList[type].list.push(...goodsList)
 

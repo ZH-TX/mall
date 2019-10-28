@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <!-- <router-view></router-view>
-    <mainTabbar></mainTabbar> -->
+
     <keep-alive exclude="Detail">
       <router-view></router-view>
     </keep-alive>
@@ -25,7 +22,6 @@
 export default {
   name: 'app',
   components: {
-    // HelloWorld
     MainTabBar,
     Icon,
     SvgIcon
@@ -36,9 +32,6 @@ export default {
 <style>
 
 @import "./assets/css/base.css";
-
-
-
 
 
 #app {

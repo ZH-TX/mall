@@ -6,7 +6,6 @@ import qs from 'qs'
 export default function axios(option) {
 	return new Promise((resolve, reject) => {
 		// 1.创建axios的实例
-
 		const instance = originAxios.create({
 			baseURL: '/api?s_type=1&key_word=女装&app_key=LqZSB5E1&page=xxx&v=1.0&cat=2',
 			timeout: 5000
@@ -31,7 +30,6 @@ export default function axios(option) {
 		})
 
 
-
 		instance.interceptors.response.use(response => {
 			console.log('来到了response拦截success中');
 			return response.data
@@ -47,7 +45,6 @@ export default function axios(option) {
 					case 401:
 						err.message = '未授权的访问'
 						break
-
 					case 404:
 						err.message = '没有找到啊'
 						break
